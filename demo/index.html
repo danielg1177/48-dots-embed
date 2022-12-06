@@ -5,46 +5,7 @@
 <body>
     <h1>Lorem ipsum dolor sit amet augue</h1>
     <h2>Fusce gravida vehicula vestibulum tortor pulvinar</h2>
-    <div id="embed_container" class="flex items-center">
-        <p class="embed_text">I want to </p>
-        <div class="relative flex">
-            <div class="flex items-end">
-                <p id="stay_button" class="embed_button" onClick="toggleStayDropdown()">stay</p>
-                <span style="font-size: 37px;">,</span>
-            </div>
-            <div id="stay-dropdown" class="embed_dropdown">
-                <p onClick="selectStay('swap')" class="stay-option">Swap</p>
-                <p onClick="selectStay('book')" class="stay-option">Book</p>
-                <p onClick="selectStay('points')" class="stay-option">Use Points</p>
-            </div>
-        </div>
-
-        <div class="relative flex">
-            <p id="location_button" class="embed_button" onClick="toggleLocationDropdown()">anywhere</p>
-            <div id="location-dropdown" class="embed_dropdown">
-                <form autocomplete="off" action="/action_page.php">
-                    <div class="autocomplete">
-                      <input id="location-input" type="text" name="location-input" placeholder="Search by location">
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="relative flex">
-            <p id="date_button" class="embed_button" onClick="toggleDateDropdown()">anytime</p>
-            <div id="date-dropdown" class="embed_dropdown">
-                <div class="justify-between">
-                    <input class="date-dropdown-input" id="start" />
-                    <input class="date-dropdown-input" id="end" />
-                </div>
-                <p id="date-dropdown-label"></p>
-            </div>
-        </div>
-
-        <div id="embed_search_button" class="flex" onClick="redirectToSite()">
-            <p>Search</p>
-        </div>
-    </div>
+    <div id="embed_container" class="flex items-center"></div>
 
 
     <p>Orci purus ante excepteur nunc nascetur rhoncus taciti ut. Ornare vitae sed. Amet suspendisse integer rutrum aliquet
@@ -128,10 +89,11 @@
         }
 
         .date-dropdown-open {
-            height: 350px !important;
+            height: 315px !important;
             box-shadow: 1px 1px 1px 1px rgb(0 0 0 / 20%), 1px 1px 1px 1px rgb(0 0 0 / 14%), 1px 1px 1px 1px rgb(0 0 0 / 12%) !important;
             overflow-y: auto;
             padding-top: 10px;
+            padding: 0 10px;
         }
 
         .stay-option {
@@ -213,6 +175,10 @@
             justify-content: space-around;
         }
 
+        .hidden {
+            display: none;
+        }
+
         .flex {
             display: flex;
         }
@@ -229,7 +195,7 @@
             display: none !important;
         }
         .deskycal {
-            width: min-content;
+            width: 100%;
         }
 
         .deskycal input {
@@ -239,7 +205,7 @@
             /* background: url("/icons/calendar.png") no-repeat left; */
             background-position-x: 1px;
             background-size: 20px;
-            color: #999;
+            color: rgb(91, 91, 91);
             background-color: #fcfcfc;
             border-radius: 5px;
             border-color: #9846B7;
@@ -267,7 +233,7 @@
             width: 400px;
             z-index: 9;
             overflow: auto;
-            top: 90px;
+            top: 50px;
             height: 250px;
         }
 
@@ -373,7 +339,7 @@
 
 
         .desky-cal-container.single {
-            width: 373px;
+            /* width: 100%; */
             grid-template-columns: 1fr;
         }
         .desky-cal-container.single .desky-cal-daylist {
@@ -392,80 +358,10 @@
             border-radius: 7px;
         }
 
-        @media only screen and (max-width: 600px) {
-            .deskycal input {
-                font-size: 16px;
-            }
-            .desky-cal-container {
-                grid-template-columns: 1fr;
-            }
-            .desky-cal-container .left {
-                display: none !important;
-            }
-
-        }
-
-        @media only screen and (max-width: 1100px) {
-            .desky-cal-container .curr-month:hover, .desky-cal-container .desky-arrow:hover, .desky-cal-container .desky-cal-close:hover {
-                color: #333;
-            }
-            .desky-dark-container {
-                position: fixed;
-                top: 0;
-                left: 0;
-                background-color: #00000088;
-                width: 100%;
-                height: 100%;
-                z-index: 9;
-            }
-            .desky-cal-container, .desky-cal-container.single {
-                max-width: 500px;
-                width: 90vw;
-                max-height: 88vh;
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                font-size: 22px;
-                height: 400px;
-            }
-
-            .desky-cal-container .right {
-                margin: auto 1em;
-            }
-            .desky-cal-container .left {
-                border-right: none;
-                margin: 10px auto;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                text-align: center;
-            }
-
-
-            .desky-cal-container .desky-cal-right-bottom > div {
-                font-size: 24px;
-                line-height: 24px;
-                gap: 11px;
-            }
-
-            .desky-cal-container .desky-cal-right-header {
-                line-height: 55px;
-                font-size: 22px;
-            }
-            .desky-arrow {
-                font-size: 30px;
-            }
-
-            .desky-cal-container .last-month, .desky-cal-container .next-month  {
-                color: #444;
-            }
-
-            .desky-cal-container .desky-cal-close {
-                left: 10px;
-                top: 15px;
-                font-size: 40px;
-            }
+        .desky-cal-container .inbetween-dates {
+            background-color: rgb(255, 127, 80, .7);
+            color: #333 !important;
+            border-radius: 7px;
         }
     </style>
     <script>
@@ -481,8 +377,64 @@
         function app(window) {
             console.log('starting');
 
-            // let entrance = document.getElementById('embed_container');
-            // entrance.innerHTML = "";
+            let entrance = document.getElementById('embed_container');
+
+            var el = "<p class='embed_text'>I want to </p>"
+            el +=    "<div class='relative flex'>"
+            el +=        "<div class='flex items-end'>"
+            el +=            "<p id='stay_button' class='embed_button' onClick='toggleStayDropdown()'>stay</p>"
+            el +=            "<span style='font-size: 37px;'>,</span>"
+            el +=        "</div>"
+            el +=        "<div id='stay-dropdown' class='embed_dropdown'>"
+            el +=            "<p onClick='selectStay(`swap`)'' class='stay-option'>Swap</p>"
+            el +=            "<p onClick='selectStay(`book`)' class='stay-option'>Book</p>"
+            el +=            "<p onClick='selectStay(`points`)' class='stay-option'>Use Points</p>"
+            el +=         "</div>"
+            el +=     "</div>"
+
+            el +=     "<div class='relative flex'>"
+            el +=        "<p id='location_button' class='embed_button' onClick='toggleLocationDropdown()'>anywhere</p>"
+            el +=        "<div id='location-dropdown' class='embed_dropdown'>"
+            el +=            "<form autocomplete='off' action='/action_page.php'>"
+            el +=                "<div class='autocomplete'>"
+            el +=                    "<input id='location-input' type='text' name='location-input' placeholder='Search by location'>"
+            el +=                "</div>"
+            el +=            "</form>"
+            el +=        "</div>"
+            el +=    "</div>"
+
+            el +=    "<div class='relative flex'>"
+            el +=        "<p id='date_button' class='embed_button' onClick='toggleDateDropdown()'>anytime</p>"
+            el +=        "<div id='date-dropdown' class='embed_dropdown'>"
+            el +=            "<div class='justify-between'>"
+            el +=                "<input class='date-dropdown-input hidden' id='start' />"
+            el +=                "<input class='date-dropdown-input hidden' id='end' />"
+            el +=            "</div>"
+            el +=            "<p id='date-dropdown-label'></p>"
+            el +=        "</div>"
+            el +=    "</div>"
+
+            el +=    "<div id='embed_search_button' class='flex' onClick='redirectToSite()'>"
+            el +=       "<p>Search</p>"
+            el +=    "</div>"
+
+            let node = parseHTML(el);
+            entrance.appendChild(node);
+
+            let inp = document.getElementById('location-input');
+            let suggestions = [
+                'Athens, Greece',
+                'Bali, Indonesia',
+                'British Columbia, Canada',
+                'California, USA',
+                'Hawaii, USA',
+                'Florida, USA',
+                'Salto, Uruguay',
+                'Split, Croatia',
+                'Virginia, USA',
+                'Washington, USA',
+            ]
+            autocomplete(inp, suggestions);
 
             initDeskyCalendar("start", "single", null, null, "end");
             initDeskyCalendar("end", "single");
@@ -525,6 +477,8 @@
            let stayDropDown = document.getElementById('stay-dropdown');
            locationDropDown.classList.remove('location-dropdown-open');
            stayDropDown.classList.remove('stay-dropdown-open');
+           let input = document.getElementById('start')
+           showCalSel(null, input, 'start');
         }
 
         function selectStay(opt) {
@@ -787,7 +741,9 @@
             for (let i=1; i<=numLast; i++) {
                 tdate = new Date(tdate.setDate(i));
                 tid = "calsel_"+curr_year+"_"+humanCurrMonth+"_"+tdate.getDate();
+
                 let extraClass="";
+
                 if (todayTid == tid) extraClass="today";
                 /// disabled before
                 if (tdate.getTime() < deskyOpts[inputId].disabled_before) extraClass="disabled";
@@ -847,8 +803,12 @@
                 centerDate.setMonth(idA[2]-1);
                 centerDate.setDate(idA[3]);
                 // input.value = centerDate;
-                console.log(targetId)
-                input.value = centerDate.getFullYear()+"-"+String(parseInt(centerDate.getMonth())+1).padStart(2,"0")+"-"+String(parseInt(centerDate.getDate())).padStart(2,'0');
+
+                input.value = centerDate.getFullYear()+"-"+String(parseInt(centerDate.getMonth())+1)+"-"+String(parseInt(centerDate.getDate()));
+                let calendarDayAll = document.querySelectorAll(`[data-day="calsel_${input.value.replace('-', '_').replace('-', '_')}"]`)
+                calendarDayAll.forEach(function (calendarDay) {
+                    calendarDay.classList.add('clicked')
+                })
                 options[targetId === 'start' ? 'startDate' : 'endDate'] = input.value;
             }
 
@@ -869,8 +829,26 @@
                 // drawCalSel(nextInputParent, nextInput, idA[1], idA[2]-1)
 
                 showCalSel(null, nextInputEl, 'end');
-            } else {
+            } else if (options.startDate && options.endDate) {
                 let to=300;
+
+                var getDaysArray = function(s,e) {for(var a=[],d=new Date(s);d<=new Date(e);d.setDate(d.getDate()+1)){ a.push(new Date(d));}return a;};
+                var daysArr = getDaysArray(options.startDate, options.endDate)
+                daysArr.forEach(function (date) {
+                    let day = date.getDate()
+                    let month = date.getMonth()
+                    let year = date.getFullYear()
+
+                    // TODO: get it to highlight date range
+                    key = `[data-day="calsel_${year}_${month}_${day}"]`;
+                    console.log(key)
+                    let calendarDayAll = document.querySelectorAll(key)
+                    console.log(calendarDayAll, key)
+                    calendarDayAll.forEach(function (calendarDay) {
+                        calendarDay.classList.add('inbetween-dates')
+                    })
+
+                })
 
                 setTimeout(function(){
                     el.classList.remove("clicked");
@@ -881,6 +859,9 @@
                     dateButton.classList.add('color48')
                     console.log(options)
                 },to)
+            } else {
+                let nextInputEl = document.getElementById('start')
+                showCalSel(null, nextInputEl, 'start');
             }
         }
 
@@ -959,7 +940,6 @@
             return t.content;
         }
 
-        let inp = document.getElementById('location-input');
         let suggestions = [
             'Athens, Greece',
             'Bali, Indonesia',
@@ -972,8 +952,6 @@
             'Virginia, USA',
             'Washington, USA',
         ]
-
-        autocomplete(inp, suggestions);
 
         function autocomplete(inp, arr) {
             var currentFocus;
