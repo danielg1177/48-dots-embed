@@ -30,7 +30,7 @@
             font-size:27px;
             font-weight: 600;
             font-family: "Roboto", sans-serif;
-            padding: 10px 17px;
+            padding: 10px 40px;
             border: thin solid currentColor;
             border-radius: 6px;
             margin: 0 0 0 10px;
@@ -60,6 +60,22 @@
             overflow: hidden;
             transition-duration: 200ms;
             border-radius: 5px;
+        }
+
+        .clear-dates {
+            position: absolute;
+            bottom: 0px;
+            right: 0;
+            padding: 0 15px;
+            margin: 15px;
+            color: #9846B7;
+            border: 1px solid #9846B7;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .clear-dates:hover {
+            background-color: rgba(152, 70, 183, .1);
         }
 
         #stay-dropdown {
@@ -183,6 +199,12 @@
             display: flex;
         }
 
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .items-center {
             align-items: center;
         }
@@ -227,14 +249,12 @@
             grid-template-columns: 1fr 1fr;
             gap: 0;
             user-select: none;
-            border: 1px solid #7b7a7a;
-            background-color: #0c0d2b;
             border-radius: 5px;
             width: 400px;
             z-index: 9;
             overflow: auto;
             top: 50px;
-            height: 250px;
+            height: 200px;
         }
 
         .desky-cal-container .left {
@@ -248,7 +268,7 @@
 
         .desky-cal-container .right {
             position: relative;
-            margin: 2em 0 ;
+            margin: 0;
             text-align: center;
         }
         .desky-cal-container .left-day {
@@ -261,14 +281,14 @@
         }
 
         .desky-cal-container .desky-arrow {
-            color: white;
+            color: #9846b7;
             font-weight: 800;
             cursor: pointer;
         }
 
         .desky-cal-container .desky-cal-month-name,
         .desky-cal-container .desky-cal-dow-list {
-            color: coral;
+            color: #9846b7;
         }
 
 
@@ -303,16 +323,16 @@
         .desky-cal-container .last-month,
         .desky-cal-container .next-month,
         .desky-cal-container .curr-month.disabled {
-            color: #444;
+            color: #bbb;
         }
 
         .desky-cal-container .curr-month:not(.disabled) {
-            color: #bbb;
+            color: rgb(75, 75, 75);
             cursor: pointer;
         }
 
         .desky-cal-container .curr-month.today {
-            background-color: #763000;
+            background-color: rgba(152, 70, 183, .3);
             color: #eee;
             border-radius: 7px;
         }
@@ -320,7 +340,7 @@
         .desky-cal-container .curr-month:not(.disabled):hover,
         .desky-cal-container .desky-arrow:hover,
         .desky-cal-container .desky-cal-close:hover {
-            color: coral;
+            color: rgba(152, 70, 183, .3);
         }
 
         .desky-cal-container .left:hover {
@@ -353,8 +373,8 @@
         .desky-cal-container.white .arrow {color: #666; }
 
         .desky-cal-container .right .clicked {
-            background-color: coral;
-            color: #333 !important;
+            background-color: #9846b7;
+            color: white !important;
             border-radius: 7px;
         }
 
@@ -411,11 +431,14 @@
             el +=                "<input class='date-dropdown-input hidden' id='end' />"
             el +=            "</div>"
             el +=            "<p id='date-dropdown-label'></p>"
+            el +=            "<p onClick='clearDates()' class='clear-dates'>Clear Dates</p>"
             el +=        "</div>"
             el +=    "</div>"
 
-            el +=    "<div id='embed_search_button' class='flex' onClick='redirectToSite()'>"
-            el +=       "<p>Search</p>"
+            el +=    "<div id='embed_search_button' class='flex-center' onClick='redirectToSite()'>"
+            el +=       "<div style='-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg); -o-transform: rotate(-45deg); transform: rotate(-45deg);'>"
+            el +=            "&#9906";
+            el +=       "</div>"
             el +=    "</div>"
 
             let node = parseHTML(el);
@@ -487,6 +510,29 @@
             let stayDropDown = document.getElementById('stay_button');
             stayDropDown.innerText = opt;
             stayDropDown.classList.add('color48');
+        }
+
+        function clearDates() {
+
+
+            let calendarDayAll = document.querySelectorAll(`[data-day="calsel_${options.startDate.replace('-', '_').replace('-', '_')}"]`)
+            calendarDayAll.forEach(function (calendarDay) {
+                calendarDay.classList.remove('clicked')
+            })
+            calendarDayAll = document.querySelectorAll(`[data-day="calsel_${options.endDate.replace('-', '_').replace('-', '_')}"]`)
+            calendarDayAll.forEach(function (calendarDay) {
+                calendarDay.classList.remove('clicked')
+            })
+
+            delete options.startDate;
+            delete options.endDate;
+
+            let dateButton = document.getElementById('date_button')
+            dateButton.innerText = "anytime"
+            dateButton.classList.remove('color48')
+
+            let input = document.getElementById('start')
+            showCalSel(null, input, 'start');
         }
 
         function initDeskyCalendarAll() {
@@ -620,7 +666,7 @@
             el+= "<div class='desky-dark-container desky-cal-hidden'>";
             el+= "	<div class='desky-cal-container  "+extraClass+"' id='deskycal_"+id+"'>";
             // X to close
-            el+= "		<span class='desky-cal-close' onclick='closeCalSel()'>X</span>";
+            // el+= "		<span class='desky-cal-close' onclick='closeCalSel()'>X</span>";
             if (deskyOpts[id].mode == "double") {
                 // Left -- Big Date
                 el+= "		<div class='left' onClick='dayClick(this)'>";
@@ -744,7 +790,7 @@
 
                 let extraClass="";
 
-                if (todayTid == tid) extraClass="today";
+                // if (todayTid == tid) extraClass="today";
                 /// disabled before
                 if (tdate.getTime() < deskyOpts[inputId].disabled_before) extraClass="disabled";
                 /// disabled after
@@ -828,6 +874,7 @@
                 // nextInputEl.value = centerDate.getFullYear()+"-"+String(parseInt(centerDate.getMonth())+1).padStart(2,"0")+"-"+String(parseInt(centerDate.getDate())).padStart(2,'0');
                 // drawCalSel(nextInputParent, nextInput, idA[1], idA[2]-1)
 
+                closeCalSel();
                 showCalSel(null, nextInputEl, 'end');
             } else if (options.startDate && options.endDate) {
                 let to=300;
